@@ -1,3 +1,6 @@
+import * as Keyboard from "./keyboard.js";
+import * as Mouse from "./mouse.js";
+
 import Manager from "./entities/manager.js";
 
 const canvas = document.querySelector('canvas#ld48');
@@ -30,6 +33,9 @@ function resize() {
 }
 
 function init() {
+  Keyboard.init();
+  Mouse.init(canvas);
+
   resize()
   window.addEventListener('resize', resize);
 
