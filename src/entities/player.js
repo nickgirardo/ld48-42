@@ -74,9 +74,8 @@ export default class Player {
   draw(canvas, ctx) {
 
     const normalize = (vert) => {
-      const rotatedX = vert.x*Math.cos(this.rot) - vert.y*Math.sin(this.rot);
-      const rotatedY = vert.x*Math.sin(this.rot) + vert.y*Math.cos(this.rot);
-      return {x: canvas.width*(this.center.x+rotatedX), y: canvas.width*(this.center.y+rotatedY)}
+      const rotated = Vec2.rotate(vert, this.rot);
+      return {x: canvas.width*(this.center.x+rotated.x), y: canvas.width*(this.center.y+rotated.y)}
     };
 
     const ayy = this.verts.map(normalize);
@@ -96,8 +95,9 @@ export default class Player {
 
   collisionBody() {
     return {
-      type: 'point',
-      center: this.center
+      type: 'circle',
+      center: this.center,
+      radius: 0.01,
     }
   }
 

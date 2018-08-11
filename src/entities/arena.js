@@ -8,7 +8,10 @@ export default class Arena {
 
     this.center = {x: 0.5, y: 0.5};
     this.radius = 0.48;
+    this.minRadius = 0.0001;
+    this.maxRadius = 0.5;
     this.frameShrink = [
+      0,
       0.0001,
       0.0002,
       0.0004,
@@ -16,14 +19,16 @@ export default class Arena {
       0.0012,
       0.0016,
     ];
+
+    this.targetRadius = this.radius;
+    this.maxFrameChange = 0.05;
   }
 
   update() {
-    if(this.radius > this.frameShrink[this.manager.level]) {
-      this.radius -= this.frameShrink[this.manager.level];
-    } else {
-      console.log('too small game over');
-    }
+    this.reduce(this.frameShrink[this.manager.level]);
+    const diff = this.targetRadius - this.radius;
+    const change = Math.max(Math.min(diff, this.maxFrameChange), -this.maxFrameChange);
+    this.radius += change;
   }
 
   draw(canvas, ctx) {
@@ -43,6 +48,15 @@ export default class Arena {
       invert: true,
       center: this.center,
       radius: this.radius,
+    }
+  }
+
+  reduce(amount) {
+    if(this.targetRadius - amount > this.minRadius) {
+      this.targetRadius -= amount;
+    } else {
+      this.targetRadius = this.minRadius;
+      console.log('too small game over');
     }
   }
 }

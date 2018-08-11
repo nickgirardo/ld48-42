@@ -2,6 +2,10 @@
 // Super sloppy 2d-vector maths
 // Just adding functions as I go
 
+export function up() {
+  return {x: 0, y: 1};
+}
+
 export function rotate(vec, theta) {
   return {
     x: vec.x*Math.cos(theta) - vec.y*Math.sin(theta), 

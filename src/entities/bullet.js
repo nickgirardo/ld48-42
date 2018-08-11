@@ -30,8 +30,13 @@ export default class Bullet {
   }
 
   handleCollision(collision) {
+    // TODO check to see if colision was with entity which fired
     switch(collision.name) {
       case 'Arena':
+        this.manager.destroy(this);
+        break;
+      case 'BasicEnemy':
+        this.manager.defeatEnemy(collision);
         this.manager.destroy(this);
         break;
     }
