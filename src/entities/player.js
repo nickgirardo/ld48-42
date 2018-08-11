@@ -65,6 +65,7 @@ export default class Player {
 
       // Fire bullets
       // TODO need cooldown?
+      // TODO add recoil
       // This makes it come out of a different side of the front of the ship each shot
       // as if the ship has two cannons on the front
       this.bulletOffset.y *= -1;

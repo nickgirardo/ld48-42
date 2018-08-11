@@ -50,6 +50,8 @@ export default class Shooter {
 
     this.rot = Vec2.getRotation(towardsPlayer);
 
+    // TODO check if inside bounds to shoot
+    // TODO add recoil
     this.fireFrameCount++;
     if(this.fireFrameCount === this.fireDelay) {
       this.fireFrameCount = 0;
