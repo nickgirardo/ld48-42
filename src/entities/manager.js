@@ -19,7 +19,11 @@ export default class Manager {
     // Fist handle collisions
     const collisionResults = Collision.check(this.scene);
     collisionResults.forEach(({entity, collisions}) => {
-      collisions.forEach(col => entity.handleCollision(col))
+      collisions.forEach(col => {
+        if(entity && col) {
+          entity.handleCollision(col);
+        }
+      });
     });
 
     this.scene.forEach(c=>c.update());
