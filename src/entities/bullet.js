@@ -3,9 +3,11 @@ import * as Vec2 from "../vec2.js";
 export default class Bullet {
 
   constructor(manager, source, startLoc, direction) {
-    this.name = "Bullet";
     this.manager = manager;
+
+    this.name = "Bullet";
     this.source = source;
+    this.isEnemy = source.isEnemy;
 
     this.color = source.color;
     this.center = startLoc;
@@ -13,6 +15,8 @@ export default class Bullet {
 
     this.velocity = 0.02;
     this.radius = 0.01;
+
+    this.strength = 0.1;
   }
 
   update() {
@@ -30,7 +34,6 @@ export default class Bullet {
   }
 
   handleCollision(collision) {
-    // TODO check to see if colision was with entity which fired
     switch(collision.name) {
       case 'Arena':
         this.manager.destroy(this);

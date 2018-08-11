@@ -1,11 +1,15 @@
 import * as Util from "../../util.js";
 import * as Vec2 from "../../vec2.js";
 
+import Bullet from "../bullet.js";
+
 export default class Rusher {
   constructor(manager, player) {
-    this.name = "Rusher";
     this.manager = manager;
     this.player = player
+
+    this.name = "Rusher";
+    this.isEnemy = true;
 
     this.center = {x: 0.7, y: 0.3};
     this.verts = [
@@ -21,6 +25,8 @@ export default class Rusher {
 
     this.velocity = 0.005;
     this.direction = Vec2.norm(Vec2.sub(this.player.center, this.center));
+
+    this.strength = 0.15;
   }
 
 
@@ -46,8 +52,10 @@ export default class Rusher {
         this.manager.destroy(this);
         break;
       case 'Bullet':
-        this.manager.defeatEnemy(this);
-        this.manager.destroy(collision);
+        if(!collision.isEnemy) {
+          this.manager.defeatEnemy(this);
+          this.manager.destroy(collision);
+        }
         break;
     }
   }

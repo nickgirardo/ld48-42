@@ -1,11 +1,13 @@
 import * as Util from "../../util.js";
 import * as Vec2 from "../../vec2.js";
 
-export default class Rusher {
+export default class Shooter {
   constructor(manager, player) {
-    this.name = "Rusher";
     this.manager = manager;
     this.player = player
+
+    this.name = "Shooter";
+    this.isEnemy = true;
 
     this.center = {x: 0.6, y: 0.6};
     this.verts = [
@@ -21,6 +23,12 @@ export default class Rusher {
 
     this.velocity = 0.0035;
     this.direction = Vec2.norm(Vec2.sub(this.player.center, this.center));
+
+    this.fireDelay = 60;
+    // The first shot takes 20 frames more than all of the rest
+    this.fireFrameCount = -20;
+
+    this.strength = 0.1;
   }
 
 
@@ -41,6 +49,13 @@ export default class Rusher {
     }
 
     this.rot = Vec2.getRotation(towardsPlayer);
+
+    this.fireFrameCount++;
+    if(this.fireFrameCount === this.fireDelay) {
+      this.fireFrameCount = 0;
+
+      this.manager.shootAt(this, this.center, this.player.center);
+    }
   }
 
   draw(canvas, ctx) {
@@ -54,8 +69,10 @@ export default class Rusher {
         this.manager.destroy(this);
         break;
       case 'Bullet':
-        this.manager.defeatEnemy(this);
-        this.manager.destroy(collision);
+        if(!collision.isEnemy) {
+          this.manager.defeatEnemy(this);
+          this.manager.destroy(collision);
+        }
         break;
     }
   }

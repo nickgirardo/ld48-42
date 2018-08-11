@@ -4,8 +4,10 @@ import * as Keyboard from "../keyboard.js";
 
 export default class Player {
   constructor(manager, canvas) {
-    this.name = "Player";
     this.manager = manager;
+
+    this.name = "Player";
+    this.isEnemy = false;
 
     this.center = {x: 0.5, y: 0.5};
     this.verts = [
@@ -76,7 +78,16 @@ export default class Player {
     Util.drawVec(canvas, ctx, this.center, this.verts, this.rot, this.color);
   }
 
-  handleCollision() {}
+  handleCollision(collision) {
+    switch(collision.name) {
+      case 'Bullet':
+        if(collision.isEnemy) {
+          this.manager.damagePlayer(this, collision);
+          this.manager.destroy(collision);
+        }
+        break;
+    }
+  }
 
   collisionBody() {
     return {

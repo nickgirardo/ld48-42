@@ -3,8 +3,10 @@ import * as Vec2 from "../../vec2.js";
 
 export default class BasicEnemy {
   constructor(manager) {
-    this.name = "BasicEnemy";
     this.manager = manager;
+
+    this.name = "BasicEnemy";
+    this.isEnemy = true;
 
     this.center = {x: 0.3, y: 0.3};
     this.verts = [
@@ -32,6 +34,8 @@ export default class BasicEnemy {
     this.velocity = 0.002;
     this.currentDir = Math.random()*Math.PI*2;
     this.direction = Vec2.rotate(Vec2.up(), this.currentDir);
+
+    this.strength = 0.15;
   }
 
 
@@ -56,8 +60,10 @@ export default class BasicEnemy {
         this.manager.destroy(this);
         break;
       case 'Bullet':
-        this.manager.defeatEnemy(this);
-        this.manager.destroy(collision);
+        if(!collision.isEnemy) {
+          this.manager.defeatEnemy(this);
+          this.manager.destroy(collision);
+        }
         break;
     }
   }

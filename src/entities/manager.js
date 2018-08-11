@@ -87,9 +87,8 @@ export default class Manager {
 
   // Damage dealt to the player is represented by arena shrinking
   // The only way the player loses is if he leaves the arena
-  // TODO should the enemy dealing the damage have a property representing its 'strength'?
   damagePlayer(player, enemy) {
-    this.arena.reduce(0.15);
+    this.arena.reduce(enemy.strength);
   }
     
 

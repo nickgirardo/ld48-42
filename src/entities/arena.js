@@ -21,7 +21,7 @@ export default class Arena {
     ];
 
     this.targetRadius = this.radius;
-    this.maxFrameChange = 0.05;
+    this.maxFrameChange = 0.04;
   }
 
   update() {
