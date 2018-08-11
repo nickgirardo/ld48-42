@@ -1,5 +1,4 @@
 import * as Keyboard from "./keyboard.js";
-import * as Mouse from "./mouse.js";
 
 import Manager from "./entities/manager.js";
 
@@ -34,12 +33,11 @@ function resize() {
 
 function init() {
   Keyboard.init();
-  Mouse.init(canvas);
 
   resize()
   window.addEventListener('resize', resize);
 
-  manager = new Manager();
+  manager = new Manager(canvas);
 
   update();
 }

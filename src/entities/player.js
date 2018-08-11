@@ -1,9 +1,10 @@
 import * as Vec2 from "../vec2.js";
 import * as Keyboard from "../keyboard.js";
-import * as Mouse from "../mouse.js";
 
 export default class Player {
-  constructor() {
+  constructor(manager, canvas) {
+    this.manager = manager;
+
     this.center = {x: 0.5, y: 0.5};
     this.verts = [
       {x: 0, y: 0.025},
@@ -13,9 +14,28 @@ export default class Player {
     ];
     this.rot = 0;
 
+    this.color = 'lightgrey'
+
+    // Don't want the bullets we shoot to just spawn inside the ship at its center
+    this.bulletOffset = 0.025;
+
     this.velocity = {x: 0, y:0};
     this.friction = 0.09;
-    this.acceleration = 0.02;
+    this.acceleration = 0.018;
+
+    // Mouse related garbage
+    canvas.addEventListener("mousemove", (e) => {
+      this.mouseLoc = {x: (e.clientX - canvas.offsetLeft)/canvas.width, y: (e.clientY - canvas.offsetTop)/canvas.height};
+    });
+
+    canvas.addEventListener("click", (e) => {
+      this.click = true;
+      this.clickLoc = {x: (e.clientX - canvas.offsetLeft)/canvas.width, y: (e.clientY - canvas.offsetTop)/canvas.height};
+    });
+
+    this.mouseLoc = {x: 0.5, y: 0.5};
+    this.click = false;
+    this.clickLoc = {x: 0.5, y: 0.5};
   }
 
   update() {
@@ -28,7 +48,7 @@ export default class Player {
         return 0;
     }
 
-    const mouseLoc = Mouse.mouseLocation()
+    const mouseLoc = this.mouseLoc;
     // Not sure why I need to adjust this by -Math.PI/2 but it's working lol
     this.rot = Math.atan2(mouseLoc.y - this.center.y, mouseLoc.x - this.center.x) - Math.PI/2;
 
@@ -36,6 +56,13 @@ export default class Player {
     // I think this math is wrong but it seems to be working well enough for now
     this.velocity = Vec2.sub(Vec2.sMul(direction, this.acceleration), Vec2.sMul(this.velocity, this.friction));
     this.center = Vec2.add(this.center, this.velocity);
+
+    if(this.click) {
+      this.click = false;
+
+      // TODO need cooldown?
+      this.manager.shootAt(this, this.clickLoc);
+    }
 
   }
 
@@ -49,7 +76,7 @@ export default class Player {
 
     const ayy = this.verts.map(normalize);
 
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = this.color;
 
     ctx.beginPath()
     ctx.moveTo(ayy[0].x, ayy[0].y);
