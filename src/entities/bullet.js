@@ -35,10 +35,6 @@ export default class Bullet {
       case 'Arena':
         this.manager.destroy(this);
         break;
-      case 'BasicEnemy':
-        this.manager.defeatEnemy(collision);
-        this.manager.destroy(this);
-        break;
     }
   }
 

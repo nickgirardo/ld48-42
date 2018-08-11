@@ -1,3 +1,4 @@
+import * as Util from "../util.js";
 import * as Vec2 from "../vec2.js";
 import * as Keyboard from "../keyboard.js";
 
@@ -72,23 +73,7 @@ export default class Player {
   }
 
   draw(canvas, ctx) {
-
-    const normalize = (vert) => {
-      const rotated = Vec2.rotate(vert, this.rot);
-      return {x: canvas.width*(this.center.x+rotated.x), y: canvas.width*(this.center.y+rotated.y)}
-    };
-
-    const ayy = this.verts.map(normalize);
-
-    ctx.fillStyle = this.color;
-
-    ctx.beginPath()
-    ctx.moveTo(ayy[0].x, ayy[0].y);
-    ayy.slice(1).forEach(v => ctx.lineTo(v.x, v.y));
-    ctx.closePath();
-
-    ctx.fill();
-    ctx.stroke();
+    Util.drawVec(canvas, ctx, this.center, this.verts, this.rot, this.color);
   }
 
   handleCollision() {}

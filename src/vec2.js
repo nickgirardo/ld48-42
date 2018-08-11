@@ -12,6 +12,11 @@ export function rotate(vec, theta) {
     y: vec.x*Math.sin(theta) + vec.y*Math.cos(theta)
   }
 }
+
+export function getRotation(vec) {
+  return Math.atan2(vec.y, vec.x);
+}
+
 export function add(vec1, vec2) {
   return {x: vec1.x + vec2.x, y: vec1.y + vec2.y};
 }

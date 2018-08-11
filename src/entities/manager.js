@@ -6,14 +6,17 @@ import Arena from "./arena.js";
 import Bullet from "./bullet.js";
 
 import BasicEnemy from "./enemies/basic.js";
+import Rusher from "./enemies/rusher.js";
 
 export default class Manager {
   constructor(canvas) {
     this.arena = new Arena(this);
+    this.player = new Player(this, canvas);
     this.scene = [
       this.arena,
-      new Player(this, canvas),
+      this.player,
       new BasicEnemy(this),
+      new Rusher(this, this.player),
     ];
 
     this.levelKills = 0;
