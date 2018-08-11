@@ -7,7 +7,7 @@ export default class Rusher {
     this.manager = manager;
     this.player = player
 
-    this.center = {x: 0.6, y: 0.3};
+    this.center = {x: 0.7, y: 0.3};
     this.verts = [
       {x: 0.02, y: 0},
       {x: -0.012, y: 0.02},
@@ -28,6 +28,8 @@ export default class Rusher {
     this.center = Vec2.add(this.center, Vec2.sMul(this.direction, this.velocity));
 
     const targetRot = Vec2.norm(Vec2.sub(this.player.center, this.center));
+    // If this coefficient is too large the rusher will miss the player
+    // or never hit him at all
     const gradualness = 4;
     this.direction = Vec2.norm(Vec2.add(Vec2.sMul(this.direction, gradualness), targetRot));
     this.rot = Vec2.getRotation(this.direction);

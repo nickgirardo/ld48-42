@@ -1,7 +1,6 @@
 import * as Vec2 from "./vec2.js";
 
 export function drawVec(canvas, ctx, center, verts, rotation, color) {
-  console.log(rotation);
   const normalize = (vert) => {
     const rotated = Vec2.rotate(vert, rotation);
     return {x: canvas.width*(center.x+rotated.x), y: canvas.width*(center.y+rotated.y)}
