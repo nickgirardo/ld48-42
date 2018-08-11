@@ -7,10 +7,10 @@ export default class Player {
 
     this.center = {x: 0.5, y: 0.5};
     this.verts = [
-      {x: 0, y: 0.025},
-      {x: 0.015, y: -0.025},
-      {x: 0, y: -0.018},
-      {x: -0.015, y: -0.025},
+      {x: 0.025, y: 0},
+      {x: -0.025, y: -0.015},
+      {x: -0.018, y: 0},
+      {x: -0.025, y: 0.015},
     ];
     this.rot = 0;
 
@@ -49,8 +49,7 @@ export default class Player {
     }
 
     const mouseLoc = this.mouseLoc;
-    // Not sure why I need to adjust this by -Math.PI/2 but it's working lol
-    this.rot = Math.atan2(mouseLoc.y - this.center.y, mouseLoc.x - this.center.x) - Math.PI/2;
+    this.rot = Math.atan2(mouseLoc.y - this.center.y, mouseLoc.x - this.center.x);
 
     const direction = Vec2.norm({x: moreRecentPress(68, 65), y: moreRecentPress(83, 87)});
     // I think this math is wrong but it seems to be working well enough for now
