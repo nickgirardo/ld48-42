@@ -3,6 +3,7 @@ import * as Keyboard from "../keyboard.js";
 
 export default class Player {
   constructor(manager, canvas) {
+    this.name = "Player";
     this.manager = manager;
 
     this.center = {x: 0.5, y: 0.5};
@@ -17,7 +18,7 @@ export default class Player {
     this.color = 'lightgrey'
 
     // Don't want the bullets we shoot to just spawn inside the ship at its center
-    this.bulletOffset = 0.025;
+    this.bulletOffset = {x: 0.025, y:0.008};
 
     this.velocity = {x: 0, y:0};
     this.friction = 0.09;
@@ -59,8 +60,13 @@ export default class Player {
     if(this.click) {
       this.click = false;
 
+      // Fire bullets
       // TODO need cooldown?
-      this.manager.shootAt(this, this.clickLoc);
+      // This makes it come out of a different side of the front of the ship each shot
+      // as if the ship has two cannons on the front
+      this.bulletOffset.y *= -1;
+      const spawnLoc = Vec2.add(this.center, Vec2.rotate(this.bulletOffset, this.rot));
+      this.manager.shootAt(this, spawnLoc, this.clickLoc);
     }
 
   }
@@ -84,6 +90,15 @@ export default class Player {
 
     ctx.fill();
     ctx.stroke();
-
   }
+
+  handleCollision() {}
+
+  collisionBody() {
+    return {
+      type: 'point',
+      center: this.center
+    }
+  }
+
 }

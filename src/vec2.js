@@ -43,3 +43,8 @@ export const mag = magnitude;
 export function sMul(vec, s) {
   return {x: vec.x*s, y: vec.y*s};
 }
+
+// TODO should be using epsilons for this
+export function equals(vec1, vec2) {
+  return vec1.x === vec2.x && vec1.y === vec2.y;
+}

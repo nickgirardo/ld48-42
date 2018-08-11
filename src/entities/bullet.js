@@ -3,6 +3,7 @@ import * as Vec2 from "../vec2.js";
 export default class Bullet {
 
   constructor(manager, source, startLoc, direction) {
+    this.name = "Bullet";
     this.manager = manager;
     this.source = source;
 
@@ -25,7 +26,22 @@ export default class Bullet {
     ctx.beginPath();
     ctx.arc(canvas.width*this.center.x, canvas.width*this.center.y, pxRadius, 0, Math.PI * 2, false);
     ctx.fill();
+  }
 
+  handleCollision(collision) {
+    switch(collision.name) {
+      case 'Arena':
+        this.manager.destroy(this);
+        break;
+    }
+  }
+
+  collisionBody() {
+    return {
+      type: "circle",
+      center: this.center,
+      radius: this.radius,
+    }
   }
 
 }

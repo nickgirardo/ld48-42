@@ -3,8 +3,10 @@
 export default class Arena {
 
   constructor(manager) {
+    this.name = "Arena";
     this.manager = manager;
 
+    this.center = {x: 0.5, y: 0.5};
     this.radius = 0.48;
     this.frameShrink = [
       0.0001,
@@ -29,8 +31,18 @@ export default class Arena {
 
     ctx.fillStyle = 'white';
     ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.width/2, pxRadius, 0, Math.PI * 2, false);
+    ctx.arc(canvas.width*this.center.x, canvas.width*this.center.y, pxRadius, 0, Math.PI * 2, false);
     ctx.fill();
   }
 
+  handleCollision() {}
+
+  collisionBody() {
+    return {
+      type: "circle",
+      invert: true,
+      center: this.center,
+      radius: this.radius,
+    }
+  }
 }
