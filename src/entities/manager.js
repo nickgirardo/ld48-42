@@ -5,8 +5,10 @@ import Player from "./player.js";
 import Arena from "./arena.js";
 import Bullet from "./bullet.js";
 
+// Enemies
 import BasicEnemy from "./enemies/basic.js";
 import Rusher from "./enemies/rusher.js";
+import Shooter from "./enemies/shooter.js";
 
 export default class Manager {
   constructor(canvas) {
@@ -17,6 +19,7 @@ export default class Manager {
       this.player,
       new BasicEnemy(this),
       new Rusher(this, this.player),
+      new Shooter(this, this.player),
     ];
 
     this.levelKills = 0;
