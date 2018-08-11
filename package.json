@@ -1,0 +1,25 @@
+{
+  "name": "ld48-42",
+  "version": "1.0.0",
+  "description": "Ludum Dare 48-- Running out of space",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev" : "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickgirardo/ld48-42.git"
+  },
+  "author": "Nick Girardo",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nickgirardo/ld48-42/issues"
+  },
+  "homepage": "https://github.com/nickgirardo/ld48-42#readme",
+  "devDependencies": {
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
