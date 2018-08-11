@@ -1,9 +1,14 @@
 import * as Vec2 from "./vec2.js";
 
 export function check(scene) {
-  const ret = scene.map(e=> ({entity:e, collisions:[]}));
-  scene.forEach((e1,ix) => {
-    scene.slice(ix+1).forEach((e2, ix2) => {
+
+  // Only check among entities with defined colision bodies
+  const colBodies = scene.filter(e=> typeof e.collisionBody === "function");
+
+  const ret = colBodies.map(e=> ({entity:e, collisions:[]}));
+
+  colBodies.forEach((e1,ix) => {
+    colBodies.slice(ix+1).forEach((e2, ix2) => {
       if(test(e1.collisionBody(), e2.collisionBody())) {
         ret[ix].collisions.push(e2);
         ret[ix + ix2 + 1].collisions.push(e1);

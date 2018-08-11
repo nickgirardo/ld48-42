@@ -20,9 +20,8 @@ export default class Manager {
     const collisionResults = Collision.check(this.scene);
     collisionResults.forEach(({entity, collisions}) => {
       collisions.forEach(col => {
-        if(entity && col) {
+        if(entity && col)
           entity.handleCollision(col);
-        }
       });
     });
 
