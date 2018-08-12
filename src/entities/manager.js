@@ -55,10 +55,9 @@ export default class Manager {
     this.level = 0;
 
     this.score = 0;
-    this.hiscore = 0;
+    this.hiscore = Number(localStorage.getItem('hiscore')) || 0;
+    this.paddedHiscore = (this.hiscore + '').padStart(8, '0');
     this.incScore(0);
-
-    // TODO score saving
   }
 
   update() {
@@ -106,7 +105,7 @@ export default class Manager {
     }
 
     ctx.textAlign = 'end';
-    ctx.fillText(`Hi Score ${this.paddedScore || 0}`, canvas.width-4, 4)
+    ctx.fillText(`Hi Score ${this.hiScore()}`, canvas.width-4, 4)
     ctx.fillText(`Score ${this.paddedScore || 0}`, canvas.width-4, 32)
   }
 
@@ -141,7 +140,7 @@ export default class Manager {
   }
 
   hiScore() {
-    return this.score < this.hiscore ? this.paddedHiScore : this.paddedScore;
+    return this.score < this.hiscore ? this.paddedHiscore : this.paddedScore;
   }
 
   advanceLevel() {
@@ -203,6 +202,9 @@ export default class Manager {
   }
 
   gameOver() {
+    if(this.score > this.hiscore)
+      localStorage.setItem('hiscore', this.hiscore);
+
     this.isGameOver = true;
     this.scene.push(new GameOverText(this));
     
