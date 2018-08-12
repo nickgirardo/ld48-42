@@ -2,14 +2,14 @@ import * as Util from "../../util.js";
 import * as Vec2 from "../../vec2.js";
 
 export default class Shooter {
-  constructor(manager, player) {
+  constructor(manager, player, center) {
     this.manager = manager;
     this.player = player
 
     this.name = "Shooter";
     this.isEnemy = true;
 
-    this.center = {x: 0.6, y: 0.6};
+    this.center = center;
     this.verts = [
       {x: 0.013, y: 0},
       {x: -0.012, y: 0.024},

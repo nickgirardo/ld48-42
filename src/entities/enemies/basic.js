@@ -2,13 +2,13 @@ import * as Util from "../../util.js";
 import * as Vec2 from "../../vec2.js";
 
 export default class BasicEnemy {
-  constructor(manager) {
+  constructor(manager, player, center) {
     this.manager = manager;
 
     this.name = "BasicEnemy";
     this.isEnemy = true;
 
-    this.center = {x: 0.3, y: 0.3};
+    this.center = center;
     this.verts = [
       {x: 0.02, y: 0.02},
       {x: 0, y: 0.024},

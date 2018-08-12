@@ -4,14 +4,14 @@ import * as Vec2 from "../../vec2.js";
 import Bullet from "../bullet.js";
 
 export default class Rusher {
-  constructor(manager, player) {
+  constructor(manager, player, center) {
     this.manager = manager;
     this.player = player
 
     this.name = "Rusher";
     this.isEnemy = true;
 
-    this.center = {x: 0.7, y: 0.3};
+    this.center = center;
     this.verts = [
       {x: 0.02, y: 0},
       {x: -0.012, y: 0.02},

@@ -7,6 +7,7 @@ import Bullet from "./bullet.js";
 import Soul from "./soul.js";
 
 // Enemies
+import Spawner from "./enemies/spawner.js";
 import BasicEnemy from "./enemies/basic.js";
 import Rusher from "./enemies/rusher.js";
 import Shooter from "./enemies/shooter.js";
@@ -18,9 +19,7 @@ export default class Manager {
     this.scene = [
       this.arena,
       this.player,
-      new BasicEnemy(this),
-      new Rusher(this, this.player),
-      new Shooter(this, this.player),
+      new BasicEnemy(this, this.player, {x: 0.6, y:0.6}),
     ];
 
     this.levelKills = 0;
@@ -84,6 +83,10 @@ export default class Manager {
 
   advanceLevel() {
     this.level++;
+    // Start spawning enemies at the start of the first level
+    // Level 0 is just one enemy
+    if(this.level === 1)
+      this.scene.push(new Spawner(this, this.arena, this.player));
   }
 
   shootAt(source, spawn, target) {
