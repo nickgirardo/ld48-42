@@ -4,6 +4,7 @@ import * as Vec2 from "../vec2.js";
 import Player from "./player.js";
 import Arena from "./arena.js";
 import Bullet from "./bullet.js";
+import Soul from "./soul.js";
 
 // Enemies
 import BasicEnemy from "./enemies/basic.js";
@@ -73,6 +74,11 @@ export default class Manager {
     this.levelKills++;
     if(this.levelKills === this.levelKillsNeeded[this.level])
       this.advanceLevel();
+
+    const soulsToCreate = 12;
+    for(let i=0; i<soulsToCreate; i++) {
+      this.scene.push(new Soul(this, this.player, entity.center));
+    }
     this.destroy(entity);
   }
 
@@ -90,6 +96,10 @@ export default class Manager {
   damagePlayer(player, enemy) {
     this.arena.reduce(enemy.strength);
   }
-    
+
+  collectSoul(player, soul) {
+    // TODO tweak, this seems high
+    this.arena.increase(0.01);
+  }
 
 }

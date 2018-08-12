@@ -59,4 +59,9 @@ export default class Arena {
       console.log('too small game over');
     }
   }
+
+  increase(amount) {
+    this.targetRadius = Math.min(this.targetRadius + amount, this.maxRadius);
+  }
+
 }

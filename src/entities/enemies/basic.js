@@ -19,15 +19,6 @@ export default class BasicEnemy {
       {x: 0.02, y: -0.02},
       {x: 0.024, y: 0},
     ];
-    // TODO Typed these in wrong but they look cool use something based off this for another enemy
-    /*
-    this.verts = [
-      {x: 0.025, y: 0.025},
-      {x: 0.025, y: -0.025},
-      {x: -0.025, y: 0.025},
-      {x: -0.025, y: -0.025},
-    ];
-    */
     this.color = 'red';
     this.rot = 0;
 
