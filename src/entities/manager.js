@@ -16,6 +16,12 @@ import Shooter from "./enemies/shooter.js";
 import FlashText from "./ui/flashText.js";
 import GameOverText from "./ui/gameOverText.js";
 
+// SFX
+import EnemyBulletSFX from "./sfx/enemyBullet.js";
+import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
+// import LevelUpSFX from "./sfx/levelUp.js";
+// import GameOverSFX from "./sfx/gameOver.js";
+
 export default class Manager {
   constructor(canvas, newGame) {
     this.canvas = canvas;
@@ -26,6 +32,9 @@ export default class Manager {
       this.arena,
       this.player,
     ];
+
+    this.enemyBulletSfx = new EnemyBulletSFX();
+    this.friendlyBulletSfx = new FriendlyBulletSFX();
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -146,6 +155,10 @@ export default class Manager {
   shootAt(source, spawn, target) {
     const direction = Vec2.norm(Vec2.sub(target, source.center));
     this.scene.push(new Bullet(this, source, spawn, direction));
+    if(source.isEnemy)
+      this.enemyBulletSfx.play();
+    else
+      this.friendlyBulletSfx.play();
   }
 
   // Damage dealt to the player is represented by arena shrinking
