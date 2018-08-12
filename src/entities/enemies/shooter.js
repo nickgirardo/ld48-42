@@ -21,12 +21,13 @@ export default class Shooter {
     this.color = 'red';
     this.rot = 0;
 
-    this.velocity = 0.0035;
+    this.friction = 0.84;
+    this.acceleration = 0.00065;
+    this.velocity = {x: 0, y:0};
     this.direction = Vec2.norm(Vec2.sub(this.player.center, this.center));
 
-    this.fireDelay = 60;
-    // The first shot takes 20 frames more than all of the rest
-    this.fireFrameCount = -20;
+    this.fireDelay = 80;
+    this.fireFrameCount = 0;
 
     this.strength = 0.1;
   }
@@ -42,22 +43,25 @@ export default class Shooter {
     // It might be happy with its distance and not do either
     if(distance > idealMaxDistance) {
       // Approach
-      this.center = Vec2.add(this.center, Vec2.sMul(Vec2.norm(towardsPlayer), this.velocity));
+      this.velocity = Vec2.add(this.velocity, Vec2.sMul(Vec2.norm(towardsPlayer), this.acceleration));
     } else if (distance < idealMinDistance) {
       // Retreat
-      this.center = Vec2.sub(this.center, Vec2.sMul(Vec2.norm(towardsPlayer), this.velocity));
+      this.velocity = Vec2.sub(this.velocity, Vec2.sMul(Vec2.norm(towardsPlayer), this.acceleration));
     }
 
-    this.rot = Vec2.getRotation(towardsPlayer);
-
-    // TODO check if inside bounds to shoot
-    // TODO add recoil
     this.fireFrameCount++;
     if(this.fireFrameCount === this.fireDelay) {
       this.fireFrameCount = 0;
 
       this.manager.shootAt(this, this.center, this.player.center);
+      const recoilForce = 0.01;
+      this.velocity = Vec2.add(this.velocity, Vec2.sMul(Vec2.norm(Vec2.sub(this.center, this.player.center)), recoilForce));
     }
+
+    this.velocity = Vec2.sMul(this.velocity, this.friction);
+    this.center = Vec2.add(this.center, this.velocity)
+
+    this.rot = Vec2.getRotation(towardsPlayer);
   }
 
   draw(canvas, ctx) {
@@ -75,6 +79,9 @@ export default class Shooter {
           this.manager.defeatEnemy(this);
           this.manager.destroy(collision);
         }
+        break;
+      case 'Arena':
+        this.fireFrameCount = 0;
         break;
     }
   }

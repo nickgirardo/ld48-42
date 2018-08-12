@@ -21,6 +21,7 @@ export default class Soul {
     this.color = 'lightgrey';
 
     this.spin = Math.random() * 1000 - 500;
+    this.magnetized = false;
 
     // TODO tweak here later
     this.friction = 0.8;
@@ -45,8 +46,12 @@ export default class Soul {
     const distance = Vec2.mag(diff);
 
     if(distance < magnetRange) {
+      this.magnetized = true;
+    }
+
+    if(this.magnetized) {
       // This is a divisor, so the larger this is the weaker the magntic effect
-      const magnetism = 20000;
+      const magnetism = 10000;
       const scaled = Vec2.div(diff, distance**2*magnetism);
       this.velocity = Vec2.add(this.velocity, scaled);
     }

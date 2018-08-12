@@ -37,10 +37,10 @@ export default class Spawner {
       [1, 1, 1],
       [0.8, 0.99, 1],
       [0.6, 0.9, 1],
-      [0.3, 0.75, 1],
-      [0.1, 0.75, 1],
-      [0.05, 0.75, 1],
-      [0.02, 0.7, 1],
+      [0.3, 0.8, 1],
+      [0.1, 0.8, 1],
+      [0.05, 0.8, 1],
+      [0.02, 0.75, 1],
     ];
 
     this.enemyTypes = [
@@ -57,7 +57,7 @@ export default class Spawner {
       const rand = Math.random();
       const enemyType = this.spawnTypes[this.manager.level].findIndex(s=>s>rand);
 
-      const center = Vec2.add(Vec2.sMul(Vec2.rotate(Vec2.up(), Math.random()*Math.PI*2), this.arena.radius), {x: 0.5, y: 0.5});
+      const center = Vec2.add(Vec2.sMul(Vec2.rotate(Vec2.up(), Math.random()*Math.PI*2), this.arena.radius * 2), {x: 0.5, y: 0.5});
 
       this.enemyTypes[enemyType](center);
     }

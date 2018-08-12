@@ -24,8 +24,8 @@ export default class Player {
     this.bulletOffset = {x: 0.025, y:0.008};
 
     this.velocity = {x: 0, y:0};
-    this.friction = 0.09;
-    this.acceleration = 0.018;
+    this.friction = 0.84;
+    this.acceleration = 0.003;
 
     // Mouse related garbage
     canvas.addEventListener("mousemove", (e) => {
@@ -57,7 +57,8 @@ export default class Player {
 
     const direction = Vec2.norm({x: moreRecentPress(68, 65), y: moreRecentPress(83, 87)});
     // I think this math is wrong but it seems to be working well enough for now
-    this.velocity = Vec2.sub(Vec2.sMul(direction, this.acceleration), Vec2.sMul(this.velocity, this.friction));
+    this.velocity = Vec2.add(this.velocity, Vec2.sMul(direction, this.acceleration));
+    this.velocity = Vec2.sMul(this.velocity, this.friction);
     this.center = Vec2.add(this.center, this.velocity);
 
     if(this.click) {
@@ -65,12 +66,14 @@ export default class Player {
 
       // Fire bullets
       // TODO need cooldown?
-      // TODO add recoil
       // This makes it come out of a different side of the front of the ship each shot
       // as if the ship has two cannons on the front
       this.bulletOffset.y *= -1;
       const spawnLoc = Vec2.add(this.center, Vec2.rotate(this.bulletOffset, this.rot));
       this.manager.shootAt(this, spawnLoc, this.clickLoc);
+      const recoilForce = 0.0015;
+      this.velocity = Vec2.add(this.velocity, Vec2.sMul(Vec2.norm(Vec2.sub(this.center, this.clickLoc)), recoilForce));
+
     }
 
   }

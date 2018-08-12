@@ -19,7 +19,7 @@ export default class Manager {
     this.scene = [
       this.arena,
       this.player,
-      new BasicEnemy(this, this.player, {x: 0.6, y:0.6}),
+      new BasicEnemy(this, this.player, {x: 0.25, y:0.25}),
     ];
 
     this.gameOver = false;
