@@ -54,10 +54,14 @@ export default class Manager {
 
   draw(canvas, ctx) {
 
-    ctx.fillStyle = this.gameOver ? 'red' : 'black';
+    ctx.fillStyle = this.gameOver ? 'red' : 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     this.scene.forEach(c=>c.draw(canvas, ctx));
+
+    // Make sure this bit of the arena is drawn after everything
+    // This is a hack to avoid needing system of layers
+    this.arena.postDraw(canvas, ctx);
   }
 
   destroy(entity) {

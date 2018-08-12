@@ -31,12 +31,15 @@ export default class Arena {
     this.radius += change;
   }
 
-  draw(canvas, ctx) {
+  draw(canvas, ctx) { }
+
+  postDraw(canvas, ctx) {
     const pxRadius = this.radius * canvas.width;
 
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
     ctx.beginPath();
     ctx.arc(canvas.width*this.center.x, canvas.width*this.center.y, pxRadius, 0, Math.PI * 2, false);
+    ctx.rect(canvas.width, 0, -canvas.width, canvas.height);
     ctx.fill();
   }
 

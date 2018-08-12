@@ -25,7 +25,7 @@ export default class Player {
 
     this.velocity = {x: 0, y:0};
     this.friction = 0.84;
-    this.acceleration = 0.003;
+    this.acceleration = 0.0024;
 
     // Mouse related garbage
     canvas.addEventListener("mousemove", (e) => {
