@@ -85,7 +85,7 @@ export default class Player {
   handleCollision(collision) {
     switch(collision.name) {
       case 'Arena':
-        this.manager.gameOver = true;
+        this.manager.gameOver();
         break;
       case 'Bullet':
         if(collision.isEnemy) {

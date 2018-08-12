@@ -12,6 +12,9 @@ import BasicEnemy from "./enemies/basic.js";
 import Rusher from "./enemies/rusher.js";
 import Shooter from "./enemies/shooter.js";
 
+// UI
+import GameOverText from "./ui/gameOverText.js";
+
 export default class Manager {
   constructor(canvas) {
     this.arena = new Arena(this);
@@ -20,11 +23,12 @@ export default class Manager {
       this.arena,
       this.player,
     ];
+    this.ui = [];
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
 
-    this.gameOver = false;
+    this.isGameOver = false;
 
     this.levelKills = 0;
     this.levelKillsNeeded = [
@@ -56,11 +60,12 @@ export default class Manager {
     });
 
     this.scene.forEach(c=>c.update());
+    this.ui.forEach(c=>c.update());
   }
 
   draw(canvas, ctx) {
 
-    ctx.fillStyle = this.gameOver ? 'red' : 'white';
+    ctx.fillStyle = this.isGameOver ? 'red' : 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     this.scene.forEach(c=>c.draw(canvas, ctx));
@@ -68,6 +73,8 @@ export default class Manager {
     // Make sure this bit of the arena is drawn after everything
     // This is a hack to avoid needing system of layers
     this.arena.postDraw(canvas, ctx);
+
+    this.ui.forEach(c=>c.draw(canvas, ctx));
 
     // Just drawing the UI here save time
     ctx.fillStyle = 'white';
@@ -169,6 +176,11 @@ export default class Manager {
     this.scene.push(enemy);
 
     return enemy;
+  }
+
+  gameOver() {
+    this.isGameOver = true;
+    this.ui.push(new GameOverText(this));
   }
 
 }

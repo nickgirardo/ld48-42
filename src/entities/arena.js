@@ -59,8 +59,7 @@ export default class Arena {
       this.targetRadius -= amount;
     } else {
       this.targetRadius = this.minRadius;
-      // too small game over
-      this.manager.gameOver = true;
+      this.manager.gameOver();
     }
   }
 
