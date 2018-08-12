@@ -28,6 +28,7 @@ export default class Rusher {
 
     this.strength = 0.15;
     this.souls = 22;
+    this.score = 100;
   }
 
 

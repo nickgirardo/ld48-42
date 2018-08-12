@@ -17,3 +17,9 @@ html, body {
     align-items: center;
     justify-content: center;
 }
+
+/* TODO remember to attribute https://freetypography.com/2018/06/19/free-font-lulu-monospace/ */
+@font-face {
+    font-family: "LuluMono";
+    src: url("LuluMonospace-Regular.otf");
+}

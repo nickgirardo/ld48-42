@@ -37,8 +37,8 @@ export default class Manager {
     ];
     this.level = 0;
 
-    // TODO
     this.score = 0;
+    this.incScore(0);
   }
 
   update() {
@@ -64,6 +64,26 @@ export default class Manager {
     // Make sure this bit of the arena is drawn after everything
     // This is a hack to avoid needing system of layers
     this.arena.postDraw(canvas, ctx);
+
+    // Just drawing the UI here save time
+    ctx.fillStyle = 'white';
+    // TODO should shrink based on screen size
+    // but this is mostly good so I might just keep it
+    ctx.font = '24px LuluMono';
+    ctx.textBaseline = 'top';
+
+    ctx.textAlign = 'start';
+    if(this.level === 0) {
+      ctx.fillText('WASD to move', 4, 4);
+      ctx.fillText('Click to shoot', 4, 32);
+    } else {
+      ctx.fillText(`Level ${this.level}`, 4, 4);
+      ctx.fillText(`Kills to next: ${this.levelKillsNeeded[this.level] - this.levelKills}`, 4, 32);
+    }
+
+    ctx.textAlign = 'end';
+    ctx.fillText(`Hi Score ${this.paddedScore || 0}`, canvas.width-4, 4)
+    ctx.fillText(`Score ${this.paddedScore || 0}`, canvas.width-4, 32)
   }
 
   destroy(entity) {
@@ -76,10 +96,9 @@ export default class Manager {
   }
 
   defeatEnemy(entity) {
-    // TODO score calculations
-    // this.score += someAmount
+    this.incScore(entity.score * (this.level+1));
     this.levelKills++;
-    if(this.levelKills === this.levelKillsNeeded[this.level])
+    if(this.levelKills >= this.levelKillsNeeded[this.level])
       this.advanceLevel();
 
     const soulsToCreate = entity.souls;
@@ -89,8 +108,18 @@ export default class Manager {
     this.destroy(entity);
   }
 
+  incScore(amount) {
+    this.score += amount;
+    this.paddedScore = (this.score + '').padStart(8, '0');
+  }
+
+  hiScore() {
+    return this.score < this.hiscore ? this.paddedHiScore : this.paddedScore;
+  }
+
   advanceLevel() {
     this.level++;
+    this.levelKills = 0;
     // Start spawning enemies at the start of the first level
     // Level 0 is just one enemy
     if(this.level === 1)
@@ -109,6 +138,7 @@ export default class Manager {
   }
 
   collectSoul(player, soul) {
+    this.incScore(this.level);
     this.arena.increase(0.0008);
   }
 

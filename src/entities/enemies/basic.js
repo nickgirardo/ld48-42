@@ -31,6 +31,7 @@ export default class BasicEnemy {
 
     this.strength = 0.15;
     this.souls = 16;
+    this.score = 50;
   }
 
 

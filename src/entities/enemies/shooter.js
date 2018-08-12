@@ -31,6 +31,7 @@ export default class Shooter {
 
     this.strength = 0.1;
     this.souls = 22;
+    this.score = 100;
   }
 
 
