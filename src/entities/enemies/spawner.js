@@ -44,9 +44,9 @@ export default class Spawner {
     ];
 
     this.enemyTypes = [
-      (center) => this.manager.scene.push(new BasicEnemy(this.manager, this.player, center)),
-      (center) => this.manager.scene.push(new Rusher(this.manager, this.player, center)),
-      (center) => this.manager.scene.push(new Shooter(this.manager, this.player, center)),
+      "BasicEnemy",
+      "Rusher",
+      "Shooter",
     ];
 
     this.sinceLastSpawn = 0;
@@ -55,11 +55,8 @@ export default class Spawner {
   update() {
     const spawnEnemy = () => {
       const rand = Math.random();
-      const enemyType = this.spawnTypes[this.manager.level].findIndex(s=>s>rand);
-
-      const center = Vec2.add(Vec2.sMul(Vec2.rotate(Vec2.up(), Math.random()*Math.PI*2), this.arena.radius * 2), {x: 0.5, y: 0.5});
-
-      this.enemyTypes[enemyType](center);
+      const enemyType = this.enemyTypes[this.spawnTypes[this.manager.level].findIndex(s=>s>rand)];
+      this.manager.spawnEnemy(enemyType);
     }
     this.sinceLastSpawn ++;
 

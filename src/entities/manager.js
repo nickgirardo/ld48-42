@@ -19,8 +19,10 @@ export default class Manager {
     this.scene = [
       this.arena,
       this.player,
-      new BasicEnemy(this, this.player, {x: 0.25, y:0.25}),
     ];
+
+    const firstEnemy = this.spawnEnemy("BasicEnemy");
+    firstEnemy.firstEnemy = true;
 
     this.gameOver = false;
 
@@ -108,6 +110,31 @@ export default class Manager {
 
   collectSoul(player, soul) {
     this.arena.increase(0.0008);
+  }
+
+  // If the first enemy hits the player we need to spawn a new enemy
+  // so that the player doesn't get stuck in level zero and the game
+  // can begin
+  firstEnemyCollision() {
+    const newFirstEnemy = this.spawnEnemy("BasicEnemy");
+    newFirstEnemy.firstEnemy = true;
+  }
+
+  spawnEnemy(type) {
+    const spawnFns = {
+      "BasicEnemy": (center) => new BasicEnemy(this, this.player, center),
+      "Rusher": (center) => new Rusher(this, this.player, center),
+      "Shooter": (center) => new Shooter(this, this.player, center),
+    }
+    const center = Vec2.add(Vec2.sMul(Vec2.rotate(Vec2.up(), Math.random()*Math.PI*2), this.arena.radius * 2), {x: 0.5, y: 0.5});
+    if(!spawnFns[type]) {
+      console.error(`Unable to spawn enemy, unknown type '${type}'`);
+      return;
+    }
+    const enemy = spawnFns[type](center);
+    this.scene.push(enemy);
+
+    return enemy;
   }
 
 }

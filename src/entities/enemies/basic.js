@@ -8,6 +8,9 @@ export default class BasicEnemy {
     this.name = "BasicEnemy";
     this.isEnemy = true;
 
+    // This property helps avoid a softlock
+    this.firstEnemy = false;
+
     this.center = center;
     this.verts = [
       {x: 0.02, y: 0.02},
@@ -48,6 +51,9 @@ export default class BasicEnemy {
   handleCollision(collision) {
     switch(collision.name) {
       case 'Player':
+        // Game needs to spawn a new enemy to begin
+        if(this.firstEnemy)
+          this.manager.firstEnemyCollision()
         this.manager.damagePlayer(collision, this);
         this.manager.destroy(this);
         break;
