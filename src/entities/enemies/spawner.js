@@ -15,12 +15,12 @@ export default class Spawner {
 
     this.spawnIntervals = [
       -1,
-      90,
-      80,
       70,
       60,
-      45,
+      50,
+      40,
       30,
+      15,
     ]
 
     this.spawnDoubleChance = [

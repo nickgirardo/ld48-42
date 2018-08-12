@@ -22,7 +22,7 @@ export default class BasicEnemy {
     this.color = 'red';
     this.rot = 0;
 
-    this.velocity = 0.002;
+    this.velocity = 0.003;
     this.currentDir = Math.random()*Math.PI*2;
     this.direction = Vec2.rotate(Vec2.up(), this.currentDir);
 

@@ -22,6 +22,8 @@ export default class Manager {
       new BasicEnemy(this, this.player, {x: 0.6, y:0.6}),
     ];
 
+    this.gameOver = false;
+
     this.levelKills = 0;
     this.levelKillsNeeded = [
       1,
@@ -52,7 +54,7 @@ export default class Manager {
 
   draw(canvas, ctx) {
 
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = this.gameOver ? 'red' : 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     this.scene.forEach(c=>c.draw(canvas, ctx));
@@ -74,7 +76,7 @@ export default class Manager {
     if(this.levelKills === this.levelKillsNeeded[this.level])
       this.advanceLevel();
 
-    const soulsToCreate = 12;
+    const soulsToCreate = 18;
     for(let i=0; i<soulsToCreate; i++) {
       this.scene.push(new Soul(this, this.player, entity.center));
     }
@@ -101,8 +103,7 @@ export default class Manager {
   }
 
   collectSoul(player, soul) {
-    // TODO tweak, this seems high
-    this.arena.increase(0.01);
+    this.arena.increase(0.0008);
   }
 
 }

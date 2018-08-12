@@ -26,9 +26,18 @@ export default class Soul {
     this.friction = 0.8;
     this.direction = Vec2.rotate(Vec2.up(), Math.random()*Math.PI*2);
     this.velocity = Vec2.sMul(this.direction, 0.016 * Math.random());
+
+    this.maxTTL = 120;
+    this.TTL = 120;
   }
 
   update() {
+    this.TTL--;
+    if(this.TTL === 0) {
+      this.manager.destroy(this);
+      return;
+    }
+
     this.velocity = Vec2.sMul(this.velocity, this.friction);
 
     const magnetRange = 0.1;
@@ -37,7 +46,7 @@ export default class Soul {
 
     if(distance < magnetRange) {
       // This is a divisor, so the larger this is the weaker the magntic effect
-      const magnetism = 40000;
+      const magnetism = 20000;
       const scaled = Vec2.div(diff, distance**2*magnetism);
       this.velocity = Vec2.add(this.velocity, scaled);
     }
@@ -50,7 +59,8 @@ export default class Soul {
   }
 
   draw(canvas, ctx) {
-    Util.drawVec(canvas, ctx, this.center, this.verts, this.rotation, this.color);
+    const scale = this.TTL > 60 ? 1 : (this.TTL/(this.maxTTL-60));
+    Util.drawVec(canvas, ctx, this.center, this.verts, this.rotation, this.color, scale);
   }
 
   handleCollision(collision) {

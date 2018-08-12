@@ -23,7 +23,7 @@ export default class Rusher {
     this.color = 'red';
     this.rot = 0;
 
-    this.velocity = 0.005;
+    this.velocity = 0.007;
     this.direction = Vec2.norm(Vec2.sub(this.player.center, this.center));
 
     this.strength = 0.15;
