@@ -13,6 +13,7 @@ import Rusher from "./enemies/rusher.js";
 import Shooter from "./enemies/shooter.js";
 
 // UI
+import FlashText from "./ui/flashText.js";
 import GameOverText from "./ui/gameOverText.js";
 
 export default class Manager {
@@ -23,7 +24,6 @@ export default class Manager {
       this.arena,
       this.player,
     ];
-    this.ui = [];
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -60,7 +60,6 @@ export default class Manager {
     });
 
     this.scene.forEach(c=>c.update());
-    this.ui.forEach(c=>c.update());
   }
 
   draw(canvas, ctx) {
@@ -68,13 +67,11 @@ export default class Manager {
     ctx.fillStyle = this.isGameOver ? 'red' : 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    this.scene.forEach(c=>c.draw(canvas, ctx));
+    this.scene.filter(e=>typeof e.draw === "function").forEach(e=>e.draw(canvas, ctx));
 
     // Make sure this bit of the arena is drawn after everything
     // This is a hack to avoid needing system of layers
-    this.arena.postDraw(canvas, ctx);
-
-    this.ui.forEach(c=>c.draw(canvas, ctx));
+    this.scene.filter(e=>typeof e.postDraw === "function").forEach(e=>e.postDraw(canvas, ctx));
 
     // Just drawing the UI here save time
     ctx.fillStyle = 'white';
@@ -128,9 +125,13 @@ export default class Manager {
     return this.score < this.hiscore ? this.paddedHiScore : this.paddedScore;
   }
 
+  // TODO sfx
   advanceLevel() {
     this.level++;
     this.levelKills = 0;
+
+    this.scene.push(new FlashText(this, 'LEVEL ' + this.level));
+
     // Start spawning enemies at the start of the first level
     // Level 0 is just one enemy
     if(this.level === 1)
@@ -180,7 +181,7 @@ export default class Manager {
 
   gameOver() {
     this.isGameOver = true;
-    this.ui.push(new GameOverText(this));
+    this.scene.push(new GameOverText(this));
   }
 
 }

@@ -1,12 +1,11 @@
 
-
 export default class GameOverText {
 
   constructor(manager) {}
 
   update() {}
 
-  draw(canvas, ctx) {
+  postDraw(canvas, ctx) {
     ctx.fillStyle = 'white';
     // TODO should shrink based on screen size
     // but this is mostly good so I might just keep it
