@@ -11,12 +11,12 @@ export default class Shooter {
 
     this.center = center;
     this.verts = [
-      {x: 0.013, y: 0},
-      {x: -0.012, y: 0.024},
-      {x: -0.022, y: 0.018},
-      {x: -0.026, y: 0},
-      {x: -0.022, y: -0.018},
-      {x: -0.012, y: -0.024},
+      {x: 0.01, y: 0},
+      {x: -0.01, y: 0.025},
+      {x: -0.02, y: 0.020},
+      {x: -0.025, y: 0},
+      {x: -0.02, y: -0.020},
+      {x: -0.01, y: -0.025},
     ];
     this.color = 'red';
     this.rot = 0;
@@ -34,6 +34,7 @@ export default class Shooter {
 
 
   update() {
+    const shootingMaxDistance = 0.28;
     const idealMaxDistance = 0.22;
     const idealMinDistance = 0.15;
     const towardsPlayer = Vec2.sub(this.player.center, this.center)
@@ -50,7 +51,7 @@ export default class Shooter {
     }
 
     this.fireFrameCount++;
-    if(this.fireFrameCount === this.fireDelay) {
+    if(distance < shootingMaxDistance && this.fireFrameCount === this.fireDelay) {
       this.fireFrameCount = 0;
 
       this.manager.shootAt(this, this.center, this.player.center);
