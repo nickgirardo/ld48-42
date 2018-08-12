@@ -38,7 +38,11 @@ export default class Manager {
     this.level = 0;
 
     this.score = 0;
+    this.hiscore = 0;
     this.incScore(0);
+
+    // TODO game over check somewhere
+    // score saving
   }
 
   update() {
