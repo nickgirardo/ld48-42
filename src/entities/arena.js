@@ -14,10 +14,10 @@ export default class Arena {
       0,
       0.0001,
       0.0002,
-      0.0004,
-      0.0008,
-      0.0012,
-      0.0016,
+      0.00035,
+      0.0007,
+      0.0011,
+      0.0014,
     ];
 
     this.targetRadius = this.radius;

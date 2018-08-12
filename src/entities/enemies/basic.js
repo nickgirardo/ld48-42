@@ -27,6 +27,7 @@ export default class BasicEnemy {
     this.direction = Vec2.rotate(Vec2.up(), this.currentDir);
 
     this.strength = 0.15;
+    this.souls = 16;
   }
 
 

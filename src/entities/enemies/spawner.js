@@ -17,9 +17,9 @@ export default class Spawner {
       -1,
       70,
       60,
-      50,
-      40,
-      30,
+      45,
+      32,
+      20,
       15,
     ]
 
@@ -27,10 +27,10 @@ export default class Spawner {
       0,
       0.001,
       0.002,
-      0.1,
-      0.4,
-      0.6,
-      0.9,
+      0.2,
+      0.5,
+      0.75,
+      0.92,
     ]
 
     this.spawnTypes = [

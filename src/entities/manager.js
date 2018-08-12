@@ -80,7 +80,7 @@ export default class Manager {
     if(this.levelKills === this.levelKillsNeeded[this.level])
       this.advanceLevel();
 
-    const soulsToCreate = 18;
+    const soulsToCreate = entity.souls;
     for(let i=0; i<soulsToCreate; i++) {
       this.scene.push(new Soul(this, this.player, entity.center));
     }

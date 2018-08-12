@@ -27,6 +27,7 @@ export default class Rusher {
     this.direction = Vec2.norm(Vec2.sub(this.player.center, this.center));
 
     this.strength = 0.15;
+    this.souls = 22;
   }
 
 

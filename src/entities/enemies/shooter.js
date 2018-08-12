@@ -30,6 +30,7 @@ export default class Shooter {
     this.fireFrameCount = 0;
 
     this.strength = 0.1;
+    this.souls = 22;
   }
 
 
