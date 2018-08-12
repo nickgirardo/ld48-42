@@ -1,19 +1,19 @@
 
 
-export default class FriendlyBulletSFX {
+export default class ShipDestroySFX {
   constructor() {
     this.sfxArray = [
-      "sfx/FriendlyBullet1.wav",
-      "sfx/FriendlyBullet2.wav",
-      "sfx/FriendlyBullet3.wav",
-      "sfx/FriendlyBullet4.wav",
-      "sfx/FriendlyBullet1.wav",
-      "sfx/FriendlyBullet2.wav",
-      "sfx/FriendlyBullet3.wav",
-      "sfx/FriendlyBullet4.wav",
+      "sfx/GameOver1.wav",
+      "sfx/GameOver2.wav",
+      "sfx/GameOver3.wav",
+      "sfx/GameOver4.wav",
+      "sfx/GameOver1.wav",
+      "sfx/GameOver2.wav",
+      "sfx/GameOver3.wav",
+      "sfx/GameOver4.wav",
     ].map(path => {
       const sfx = new Audio(path);
-      sfx.volume = 0.32;
+      sfx.volume = 0.36;
       sfx.load();
       return sfx;
     });

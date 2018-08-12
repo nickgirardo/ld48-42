@@ -19,8 +19,8 @@ import GameOverText from "./ui/gameOverText.js";
 // SFX
 import EnemyBulletSFX from "./sfx/enemyBullet.js";
 import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
-// import LevelUpSFX from "./sfx/levelUp.js";
-// import GameOverSFX from "./sfx/gameOver.js";
+import LevelUpSFX from "./sfx/levelUp.js";
+import ShipDestroySFX from "./sfx/shipDestroy.js";
 
 export default class Manager {
   constructor(canvas, newGame) {
@@ -35,6 +35,8 @@ export default class Manager {
 
     this.enemyBulletSfx = new EnemyBulletSFX();
     this.friendlyBulletSfx = new FriendlyBulletSFX();
+    this.levelUpSfx = new LevelUpSFX();
+    this.shipDestroySfx = new ShipDestroySFX();
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -127,6 +129,9 @@ export default class Manager {
     for(let i=0; i<soulsToCreate; i++) {
       this.scene.push(new Soul(this, this.player, entity.center));
     }
+
+    this.shipDestroySfx.play();
+
     this.destroy(entity);
   }
 
@@ -139,13 +144,13 @@ export default class Manager {
     return this.score < this.hiscore ? this.paddedHiScore : this.paddedScore;
   }
 
-  // TODO sfx
   advanceLevel() {
     this.level++;
     this.levelKills = 0;
 
     this.scene.push(new FlashText(this, 'LEVEL ' + this.level));
 
+    this.levelUpSfx.play();
     // Start spawning enemies at the start of the first level
     // Level 0 is just one enemy
     if(this.level === 1)

@@ -1,16 +1,12 @@
 
 
-export default class FriendlyBulletSFX {
+export default class LevelUpSFX {
   constructor() {
     this.sfxArray = [
-      "sfx/FriendlyBullet1.wav",
-      "sfx/FriendlyBullet2.wav",
-      "sfx/FriendlyBullet3.wav",
-      "sfx/FriendlyBullet4.wav",
-      "sfx/FriendlyBullet1.wav",
-      "sfx/FriendlyBullet2.wav",
-      "sfx/FriendlyBullet3.wav",
-      "sfx/FriendlyBullet4.wav",
+      "sfx/LevelUp.wav",
+      "sfx/LevelUp.wav",
+      "sfx/LevelUp.wav",
+      "sfx/LevelUp.wav",
     ].map(path => {
       const sfx = new Audio(path);
       sfx.volume = 0.32;

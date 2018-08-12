@@ -13,7 +13,7 @@ export default class EnemyBulletSFX {
       "sfx/EnemyBullet4.wav",
     ].map(path => {
       const sfx = new Audio(path);
-      sfx.volume = 0.1;
+      sfx.volume = 0.32;
       sfx.load();
       return sfx;
     });
