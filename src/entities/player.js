@@ -5,6 +5,7 @@ import * as Keyboard from "../keyboard.js";
 export default class Player {
   constructor(manager, canvas) {
     this.manager = manager;
+    this.canvas = canvas;
 
     this.name = "Player";
     this.isEnemy = false;
@@ -28,14 +29,15 @@ export default class Player {
     this.acceleration = 0.0024;
 
     // Mouse related garbage
-    canvas.addEventListener("mousemove", (e) => {
+    this.mouseMoveHandler = (e) => {
       this.mouseLoc = {x: (e.clientX - canvas.offsetLeft)/canvas.width, y: (e.clientY - canvas.offsetTop)/canvas.height};
-    });
-
-    canvas.addEventListener("click", (e) => {
+    };
+    this.clickHandler = (e) => {
       this.click = true;
       this.clickLoc = {x: (e.clientX - canvas.offsetLeft)/canvas.width, y: (e.clientY - canvas.offsetTop)/canvas.height};
-    });
+    };
+    this.canvas.addEventListener("mousemove", this.mouseMoveHandler);
+    this.canvas.addEventListener("click", this.clickHandler);
 
     this.mouseLoc = {x: 0.5, y: 0.5};
     this.click = false;
@@ -102,6 +104,11 @@ export default class Player {
       center: this.center,
       radius: 0.01,
     }
+  }
+
+  cleanUp() {
+    this.canvas.removeEventListener("click", this.clickHandler);
+    this.canvas.removeEventListener("mouseMove", this.mouseMoveHandler);
   }
 
 }

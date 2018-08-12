@@ -7,6 +7,10 @@ const ctx = canvas.getContext('2d');
 
 let manager;
 
+function newGame() {
+  manager = new Manager(canvas, newGame);
+}
+
 function update() {
   if(!manager)
     return;
@@ -37,7 +41,7 @@ function init() {
   resize()
   window.addEventListener('resize', resize);
 
-  manager = new Manager(canvas);
+  newGame();
 
   update();
 }

@@ -17,9 +17,11 @@ import FlashText from "./ui/flashText.js";
 import GameOverText from "./ui/gameOverText.js";
 
 export default class Manager {
-  constructor(canvas) {
+  constructor(canvas, newGame) {
+    this.canvas = canvas;
+    this.newGame = newGame;
     this.arena = new Arena(this);
-    this.player = new Player(this, canvas);
+    this.player = new Player(this, this.canvas);
     this.scene = [
       this.arena,
       this.player,
@@ -45,11 +47,14 @@ export default class Manager {
     this.hiscore = 0;
     this.incScore(0);
 
-    // TODO game over check somewhere
-    // score saving
+    // TODO score saving
   }
 
   update() {
+    // No updates to a finished game
+    if(this.isGameOver)
+      return;
+
     // Fist handle collisions
     const collisionResults = Collision.check(this.scene);
     collisionResults.forEach(({entity, collisions}) => {
@@ -182,6 +187,14 @@ export default class Manager {
   gameOver() {
     this.isGameOver = true;
     this.scene.push(new GameOverText(this));
+    
+    this.scene.filter(e=>typeof e.cleanUp === "function").forEach(e=>e.cleanUp());
+    
+    const clickHandler = (e) => {
+      this.canvas.removeEventListener("click", clickHandler);
+      this.newGame();
+    };
+    this.canvas.addEventListener("click", clickHandler);
   }
 
 }
