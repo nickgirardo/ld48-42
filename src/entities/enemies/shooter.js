@@ -53,7 +53,7 @@ export default class Shooter {
     }
 
     this.fireFrameCount++;
-    if(distance < shootingMaxDistance && this.fireFrameCount === this.fireDelay) {
+    if(distance < shootingMaxDistance && this.fireFrameCount >= this.fireDelay) {
       this.fireFrameCount = 0;
 
       this.manager.shootAt(this, this.center, this.player.center);
