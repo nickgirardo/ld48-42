@@ -203,7 +203,7 @@ export default class Manager {
 
   gameOver() {
     if(this.score > this.hiscore)
-      localStorage.setItem('hiscore', this.hiscore);
+      localStorage.setItem('hiscore', this.score);
 
     this.isGameOver = true;
     this.scene.push(new GameOverText(this));
