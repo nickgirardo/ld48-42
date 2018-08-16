@@ -173,7 +173,7 @@ export default class Manager {
 
   collectSoul(player, soul) {
     this.incScore(this.level);
-    this.arena.increase(0.0008);
+    this.arena.collectSoul();
   }
 
   // If the first enemy hits the player we need to spawn a new enemy

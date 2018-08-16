@@ -67,4 +67,14 @@ export default class Arena {
     this.targetRadius = Math.min(this.targetRadius + amount, this.maxRadius);
   }
 
+  // Collecting soul increases the size of the arena
+  // The amount scales inversely with the size of the arena
+  // This makes it a bit easier to come back after taking hits
+  collectSoul() {
+    const baseAmount = 0.0006;
+    const radiusDiff = this.maxRadius - this.targetRadius;
+    console.log(baseAmount + radiusDiff/600);
+    this.increase(baseAmount + radiusDiff/600);
+  }
+
 }
