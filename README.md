@@ -19,6 +19,9 @@ Changes between competition version and current version
     - Fixed bug where shooter enemies would no longer fire
 - Balance
     - Bonus from collecting soul debris from fallen enemies now scales inversely with arena size.  This allows the player to come back after taking hits
+- Content
+    - 'Game Over' sound effect
+    - 'Player hit' sound effect
 
 The above list is not guaranteed to be complete, feel free to check through commits for a more complete understanding of changes
 
@@ -26,8 +29,6 @@ The above list is not guaranteed to be complete, feel free to check through comm
 
 Not a complete list, not guaranteed to be completed in any timeframe
 - Content
-    - 'Game Over' sound effect
-    - 'Player hit' sound effect
     - Background audio
 - UI
     - Mute functionality
