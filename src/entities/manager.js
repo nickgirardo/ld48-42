@@ -18,9 +18,10 @@ import GameOverText from "./ui/gameOverText.js";
 
 // SFX
 import EnemyBulletSFX from "./sfx/enemyBullet.js";
-import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
-import LevelUpSFX from "./sfx/levelUp.js";
 import EnemyHitSFX from "./sfx/enemyHit.js";
+import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
+import PlayerHitSFX from "./sfx/playerHit.js";
+import LevelUpSFX from "./sfx/levelUp.js";
 
 export default class Manager {
   constructor(canvas, newGame) {
@@ -37,6 +38,7 @@ export default class Manager {
     this.friendlyBulletSfx = new FriendlyBulletSFX();
     this.levelUpSfx = new LevelUpSFX();
     this.enemyHitSfx = new EnemyHitSFX();
+    this.playerHitSfx = new PlayerHitSFX();
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -168,6 +170,7 @@ export default class Manager {
   // Damage dealt to the player is represented by arena shrinking
   // The only way the player loses is if he leaves the arena
   damagePlayer(player, enemy) {
+    this.playerHitSfx.play();
     this.arena.reduce(enemy.strength);
   }
 
