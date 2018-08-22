@@ -20,7 +20,7 @@ import GameOverText from "./ui/gameOverText.js";
 import EnemyBulletSFX from "./sfx/enemyBullet.js";
 import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
 import LevelUpSFX from "./sfx/levelUp.js";
-import ShipDestroySFX from "./sfx/shipDestroy.js";
+import EnemyHitSFX from "./sfx/enemyHit.js";
 
 export default class Manager {
   constructor(canvas, newGame) {
@@ -36,7 +36,7 @@ export default class Manager {
     this.enemyBulletSfx = new EnemyBulletSFX();
     this.friendlyBulletSfx = new FriendlyBulletSFX();
     this.levelUpSfx = new LevelUpSFX();
-    this.shipDestroySfx = new ShipDestroySFX();
+    this.enemyHitSfx = new EnemyHitSFX();
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -129,7 +129,7 @@ export default class Manager {
       this.scene.push(new Soul(this, this.player, entity.center));
     }
 
-    this.shipDestroySfx.play();
+    this.enemyHitSfx.play();
 
     this.destroy(entity);
   }
