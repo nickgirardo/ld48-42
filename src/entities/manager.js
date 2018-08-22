@@ -22,6 +22,7 @@ import EnemyHitSFX from "./sfx/enemyHit.js";
 import FriendlyBulletSFX from "./sfx/friendlyBullet.js";
 import PlayerHitSFX from "./sfx/playerHit.js";
 import LevelUpSFX from "./sfx/levelUp.js";
+import GameOverSFX from "./sfx/gameOver.js";
 
 export default class Manager {
   constructor(canvas, newGame) {
@@ -36,9 +37,10 @@ export default class Manager {
 
     this.enemyBulletSfx = new EnemyBulletSFX();
     this.friendlyBulletSfx = new FriendlyBulletSFX();
-    this.levelUpSfx = new LevelUpSFX();
     this.enemyHitSfx = new EnemyHitSFX();
     this.playerHitSfx = new PlayerHitSFX();
+    this.levelUpSfx = new LevelUpSFX();
+    this.gameOverSfx = new GameOverSFX();
 
     const firstEnemy = this.spawnEnemy("BasicEnemy");
     firstEnemy.firstEnemy = true;
@@ -210,6 +212,7 @@ export default class Manager {
 
     this.isGameOver = true;
     this.scene.push(new GameOverText(this));
+    this.gameOverSfx.play();
     
     this.scene.filter(e=>typeof e.cleanUp === "function").forEach(e=>e.cleanUp());
     
