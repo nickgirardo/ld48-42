@@ -1,12 +1,12 @@
 import SFX from "../../sfx.js";
 
-export default class ShipDestroySFX extends SFX {
+export default class EnemyHitSFX extends SFX {
   constructor() {
     super([
-      "sfx/GameOver1.wav",
-      "sfx/GameOver2.wav",
-      "sfx/GameOver3.wav",
-      "sfx/GameOver4.wav",
+      "sfx/EnemyHit1.wav",
+      "sfx/EnemyHit2.wav",
+      "sfx/EnemyHit3.wav",
+      "sfx/EnemyHit4.wav",
     ], 8);
   }
 }
