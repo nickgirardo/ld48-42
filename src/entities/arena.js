@@ -73,7 +73,6 @@ export default class Arena {
   collectSoul() {
     const baseAmount = 0.0006;
     const radiusDiff = this.maxRadius - this.targetRadius;
-    console.log(baseAmount + radiusDiff/600);
     this.increase(baseAmount + radiusDiff/600);
   }
 
