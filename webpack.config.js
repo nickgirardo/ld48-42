@@ -1,9 +1,18 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
+
 module.exports = {
-  entry: './src/app.js',
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "production",
+  entry: "./src/app.js",
   output: {
-    path: __dirname + '/build',
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "./dist"),
+    filename: "index_bundle.js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./index.html" }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "static" }],
+    }),
+  ],
 };
